@@ -5,17 +5,14 @@ import { useDispatch } from 'react-redux';
 const Auth = () => {
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    console.log(password, email);
     if (
       password === import.meta.env.VITE_TEST_PASSWORD &&
       email === import.meta.env.VITE_TEST_EMAIL
     ) {
       // dispatch login
-      console.log('Login Successfull');
       dispatch(login());
     } else {
       // dispatch logout
-      console.log('Invalid Credentials');
       setShowError(true);
       dispatch(logout());
     }

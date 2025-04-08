@@ -8,13 +8,11 @@ const QuoteBar = () => {
       try {
         const url = 'https://thequoteshub.com/api/';
         const response = await fetch(url, { method: 'GET' });
-        console.log(response);
         const { author, text } = await response.json();
-        console.log(author, text);
         setQuote(text);
         setAuthor(author);
       } catch (err) {
-        console.log('failed');
+        console.log(err.message);
       }
     };
     getQuote();
