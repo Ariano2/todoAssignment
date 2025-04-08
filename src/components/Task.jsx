@@ -1,16 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TaskList from './TaskList';
 import TaskBar from './TaskBar';
 
 const Task = () => {
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState();
-  const [taskArray, setTaskArray] = useState([
-    { task: 1, timeStamp: 1234 },
-    { task: 2, timeStamp: 1235 },
-    { task: 3, timeStamp: 1236 },
-    { task: 4, timeStamp: 1237 },
-  ]);
+  const loadFromLocalStorage = () => {
+    let data = localStorage.getItem('taskList');
+    data = JSON.parse(data);
+    return data;
+  };
+  const [taskArray, setTaskArray] = useState(loadFromLocalStorage() || []);
+  useEffect(() => {
+    const saveToLocalStorage = () => {
+      const taskList = JSON.stringify(taskArray);
+      localStorage.setItem('taskList', taskList);
+    };
+    if (taskArray.length > 0) {
+      saveToLocalStorage();
+    }
+  }, [taskArray]);
   return (
     <div>
       <TaskBar
